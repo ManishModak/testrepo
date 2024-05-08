@@ -1,0 +1,52 @@
+import pandas as pd
+import numpy  as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+heart_df = pd.read_csv("/content/heart.csv")
+air_df = pd.read_csv("/content/India Air Quality Data.csv", on_bad_lines='skip')
+
+
+
+air_df.isnull().sum()
+
+air_df.dropna(thresh=0.5*len(air_df),axis=1,inplace=True)
+air_df.isnull().sum()
+
+heart_df.duplicated().sum()
+
+heart_df.drop_duplicates(inplace=True)
+heart_df.duplicated().sum()
+
+heart_df.head()
+air_df.head()
+
+air_df['temp'] = np.random.randint(low=1,high=10,size=air_df.shape[0])
+air_df
+
+heart_df['temp'] = np.random.randint(low=1,high=10,size=heart_df.shape[0])
+merged_df = pd.merge(air_df, heart_df, on='temp', how="inner")
+merged_df.head()
+
+heart_df['target'] = heart_df['target'].apply(lambda x:1 if x > 0 else 0)
+
+heart_df.head()
+
+from sklearn.model_selection import train_test_split
+
+X = merged_df.drop(['target'], axis=1)
+y = merged_df['target']
+
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+from sklearn.linear_model import LogisticRegression
+
+logreg = LogisticRegression()
+logreg.fit(x_train, y_train)
+
+from sklearn.metrics import classification_report, confusion_matrix
+
+y_pred = logreg.predict(X_test)
+
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))

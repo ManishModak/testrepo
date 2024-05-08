@@ -1,0 +1,14 @@
+hbase shell
+sudo service hbase-master start
+sudo service hbase-regionserver start
+
+create "employee","personal","professional"
+
+put "employee","1","personal.name","sum"
+same
+
+
+create external table employee hbase(key sting, name string, age string, salary string, dept string)
+STORED BY "org.apache.hadoop.hive.hbase.HBaseStorageHandler"
+with serdeproperties ("hbase.columns.maping"="key.personal:name,persoal:age,professional:dept,professional:salary")
+tblproperties("hbase.table.name"="employee");

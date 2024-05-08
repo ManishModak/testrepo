@@ -1,0 +1,30 @@
+sns.boxplot(data=df,x="sex",y="chol")
+sns.histplot(df['age'])
+df.isnull().sum()
+
+
+# Create a simple dataset
+df = pd.DataFrame({
+    'x': range(1, 11),
+    'y': np.random.randn(10)
+})
+
+plt.plot('x', 'y', data=df)
+plt.show()
+
+
+# Create a more complex dataset
+df = pd.DataFrame({
+    'x': range(1, 11),
+    'y1': np.random.randn(10),
+    'y2': np.random.randn(10) + range(1, 11),
+    'y3': np.random.randn(10) + range(11, 21)
+})
+
+# multiple line plot
+plt.plot('x', 'y1', data=df, marker='o', markerfacecolor='blue', markersize=8, color='skyblue', linewidth=2)
+plt.plot('x', 'y2', data=df, marker='', color='olive', linewidth=2)
+plt.plot('x', 'y3', data=df, marker='', color='black', linewidth=2, linestyle='dashed')
+plt.legend()
+plt.show()
+

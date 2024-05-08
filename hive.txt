@@ -1,0 +1,30 @@
+jps 
+
+load data local inpath "" into table name
+
+load data inpath "" into table name
+
+hdfs dfs -mkdir /hiveData
+
+hdfs dfs -put path* /hiveData
+
+
+create table stud1(name string,rollno)
+ > row format delimited
+> fields terminated by ','
+>line terminated by '\n'
+> stored as textfile
+
+
+select a.fno,a.yr,b.source
+> from flight a join nflight b
+> on (a.fno = b.fno)
+
+create index flight_index on table flight(fno)
+> as 'org.apache.hadoop.hive.ql.index.Compact.CompactIndexHandler'
+> WITH DEFERRED rEBUILD;
+
+create external table stud3(name string,rollno)
+ > row format delimited
+> fields terminated bt ','
+> location '/Hivedata'

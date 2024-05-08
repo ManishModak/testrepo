@@ -1,0 +1,23 @@
+import numpy as np
+import pandas as pd
+
+df = pd.read_csv(r"filepath",sep=";")
+
+df
+df.head()
+
+df1 = df[["cate1","cate2","cate3"]].loc[0:15]
+
+merge = pd.concat([df1,df2,df3])
+
+sort_values = df.sort_values("cate1",ascending = False)
+
+transopose = df.transpose()
+
+df.shape()
+
+pivot_table = pd.table_table(df,index=["cate1",cate2],values = "like")
+print
+
+arr = np.array([1,2,3,4])
+arr.reshape
